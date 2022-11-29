@@ -23,11 +23,12 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -58,4 +59,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'id');
+    }   
 }
