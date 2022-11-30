@@ -17,7 +17,7 @@ class TransactionItemController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

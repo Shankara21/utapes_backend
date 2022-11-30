@@ -87,4 +87,24 @@ class UserController extends Controller
     {
         return ResponseFormatter::success($request->user(), 'Data profile user berhasil diambil');
     }
+
+    public function updateProfile(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'string|max:255',
+            'username' => 'string|max:255|unique:users,username,' . $request->user()->id,
+            'email' => 'string|email|max:255|unique:users,email,' . $request->user()->id,
+            'phone' => 'nullable|string|max:255',
+        ]);
+
+        $user = Auth::user();
+        $user->update($data);
+
+        return ResponseFormatter::success($user, 'Profile updated');
+    }
+    public function logout(Request $request)
+    {
+        $token = $request->user()->currentAccessToken()->delete();
+        return ResponseFormatter::success($token, 'Token Revoked');
+    }
 }

@@ -16,7 +16,7 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function details()
+    public function items()
     {
         return $this->hasMany(TransactionItem::class, 'transactions_id', 'id');
     }
